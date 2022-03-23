@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
 	QObject::connect(_startPushButtonPtr.get(), &QPushButton::clicked, this, &MainWindow::slotStartClicked);
 
 	_stopPushButtonPtr = std::make_shared<QPushButton>(QObject::tr("Stop"));
-	QObject::connect(_stopPushButtonPtr.get(), &QPushButton::clicked, this, &MainWindow::slotStopClicked)
+	QObject::connect(_stopPushButtonPtr.get(), &QPushButton::clicked, this, &MainWindow::slotStopClicked);
 
 	QGridLayout* pGridLayout = new QGridLayout;
 	pGridLayout->addWidget(new QLabel(QObject::tr("IP Address")), 0, 0, 1, 5);
