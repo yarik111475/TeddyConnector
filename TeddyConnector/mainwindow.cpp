@@ -4,12 +4,14 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QGridLayout>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
 {
 	_addressLineEditPtr = std::make_shared<QLineEdit>();
 	_portLineEditPtr = std::make_shared<QLineEdit>();
 	_fileNameLineEdit = std::make_shared<QLineEdit>();
+	_statusLineEdit = std::make_shared<QLineEdit>();
 
 	_connectPushButtonPtr = std::make_shared<QPushButton>(QObject::tr("Connect"));
 	QObject::connect(_connectPushButtonPtr.get(), &QPushButton::clicked, this, &MainWindow::slotConnectClicked);
@@ -35,9 +37,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)
 	pGridLayout->addWidget(_fileNameLineEdit.get(), 3, 0, 1, 5);
 	pGridLayout->addWidget(_selectPushButtonPtr.get(), 3, 6, 1, 1, Qt::AlignLeft);
 
-	pGridLayout->addWidget(_startPushButtonPtr.get(), 4, 0, 1, 1, Qt::AlignLeft);
-	pGridLayout->addWidget(_stopPushButtonPtr.get(), 4, 2, 1, 1, Qt::AlignLeft);
-	pGridLayout->setVerticalSpacing(5);
+
+	pGridLayout->addWidget(_startPushButtonPtr.get(), 4, 0, 1, 1);
+	pGridLayout->addWidget(_stopPushButtonPtr.get(), 4, 2, 1, 1);
+	pGridLayout->addWidget(new QLabel(QObject::tr("Status")), 5, 0, 1, 1, Qt::AlignLeft);
+	pGridLayout->addWidget(_statusLineEdit.get(), 6, 0, 1, 10);
 
 	QWidget* pCentralWidget = new QWidget(this);
 	pCentralWidget->setLayout(pGridLayout);
@@ -50,6 +54,10 @@ void MainWindow::slotConnectClicked()
 
 void MainWindow::slotSelectClicked()
 {
+	QString fileName = QFileDialog::getOpenFileName(this, QObject::tr("Select file"));
+	if (!fileName.isEmpty()) {
+		_fileNameLineEdit->setText(fileName);
+	}
 }
 
 void MainWindow::slotStartClicked()

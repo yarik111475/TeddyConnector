@@ -15,6 +15,7 @@ private:
     std::shared_ptr<QLineEdit> _addressLineEditPtr;
     std::shared_ptr<QLineEdit> _portLineEditPtr;
     std::shared_ptr<QLineEdit> _fileNameLineEdit;
+    std::shared_ptr<QLineEdit> _statusLineEdit;
 
     std::shared_ptr<QPushButton> _connectPushButtonPtr;
     std::shared_ptr<QPushButton> _selectPushButtonPtr;
